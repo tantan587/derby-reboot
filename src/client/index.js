@@ -1,10 +1,49 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import App from '../common/components/App.jsx';
+import { hydrate } from 'react-dom';
+import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
+import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
+import { green, red } from 'material-ui/colors';
+import App from '../common/components/App';
+import storeFactory from '../common/store';
 
-window.React = React;
+const store = storeFactory(false, window.__INITIAL_STATE__)
 
-ReactDOM.render(
-  <App />,
-    document.getElementById('react-container'),
+window.React = React
+window.store = store
+
+const theme = createMuiTheme({
+    palette: {
+      primary: green,
+      accent: red,
+      type: 'light',
+    },
+  });
+
+class Main extends React.Component {
+// Remove the server-side injected CSS.
+componentDidMount() {
+    const jssStyles = document.getElementById('jss-server-side');
+    if (jssStyles && jssStyles.parentNode) {
+    jssStyles.parentNode.removeChild(jssStyles);
+    }
+}
+
+render() {
+    return <App {...this.props} />
+}
+}
+
+console.log('rendered from here...')
+
+hydrate(
+  <Provider store={store}>
+    <BrowserRouter>
+      <MuiThemeProvider theme={theme}>
+        <Main />
+      </MuiThemeProvider>
+    </BrowserRouter>
+  </Provider>,
+  document.getElementById('react-container'),
 );
+
