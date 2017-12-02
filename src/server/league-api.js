@@ -8,7 +8,7 @@ var bcrypt = require('bcrypt-nodejs');
 var knex = require('knex')({
   client: 'pg',
   connection: process.env.DATABASE_URL,
-  searchPath: 'knex,leagues'
+  searchPath: ['knex','sports']
 });
 
 //going to used for transactions

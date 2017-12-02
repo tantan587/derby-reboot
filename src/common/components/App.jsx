@@ -18,15 +18,14 @@ const styles = theme => ({
 
 function App(props) {
   const { classes } = props;
-  console.log(AppBar);
   return (
     <div className={ classes.root }>
-      <AppBar position='static' color='blue'>
+      <AppBar position='static' color='primary'>
         <Toolbar>
           <Typography type='title' color='inherit'>
                 DERBY
           </Typography>
-          <Button raised color='primary' className={classes.button}>
+          <Button raised color='secondary' className={classes.button}>
             Primary
           </Button>
         </Toolbar>

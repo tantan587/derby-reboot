@@ -4,13 +4,17 @@ import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import { green, red } from 'material-ui/colors';
-import App from '../common/components/App';
+import App from '../common/components/App.jsx';
 import storeFactory from '../common/store';
 
 const store = storeFactory(false, window.__INITIAL_STATE__)
 
 window.React = React
 window.store = store
+
+if (process.env.NODE_ENV !== 'production') {
+  console.log('Looks like we are in development mode!');
+}
 
 const theme = createMuiTheme({
     palette: {
